@@ -82,6 +82,7 @@ function generate_navbar($tablename, $start_page, $keep_startpage, $append_links
     global $navbarfile;
     global $generate_start_checked_links;
     global $startpage_filename;
+    global $appname;
 
     echo "<h3>Table: $tablename</h3>";
 
@@ -91,7 +92,8 @@ function generate_navbar($tablename, $start_page, $keep_startpage, $append_links
             // called on the first run of the POST loop
             echo "Generating fresh Startpage file<br>";
             $step0 = str_replace("{TABLE_BUTTONS}", $start_page, $navbarfile);
-            if (!file_put_contents($startpage_filename, $step0, LOCK_EX)) {
+            $step1 = str_replace("{APP_NAME}", $appname, $step0);
+            if (!file_put_contents($startpage_filename, $step1, LOCK_EX)) {
                 die("Unable to open fresh startpage file!");
             }
         } else {
